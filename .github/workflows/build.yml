@@ -3,6 +3,21 @@ name: CI
 on: [push]
 
 jobs:
+  doctest:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: build and test
+        run: swift test -c release --enable-test-discovery --enable-code-coverage -v
+        #- name: doctest install
+        #run: |
+        #  git clone https://github.com/SwiftDocOrg/DocTest
+        #  cd DocTest
+        #  make install
+        #- name: doctest trialrun
+        #run: swift-doctest SAMPLE.md
+
   wikidocs:
     needs: build
     runs-on: ubuntu-latest
